@@ -1,6 +1,15 @@
 #!/bin/bash
 
+#Here be constants
+TEMPDIR="/tmp/getSimpleCMSsetup" #The name of the temporary dir. For actual use call createTempDir, which appends a unix timestap to ensure collison prevention
+
 #--------------------------Function Definitions--------------------------------#
+
+#creates a temporary directory and writes its path to the stdout
+createTempDir() {
+  dir=$TEMPDIR$(date +"%s")
+  echo $dir
+}
 
 #checks if $1 is the GetSimple CMS top level directory with the plugins and theme folders in it 
 isWebsiteRootDirectory() {
@@ -100,12 +109,49 @@ listThemes() {
   ls $(getWebsiteRootDirectory)"theme"
 }
 
+#downloads the latest version of GetSimple CMS and unzips it
+setupCMS() {
+  name=$1
+  if [ -z "$name" ]; then
+    #if empty, prompt for name
+    echo "What do you want the website's folder to be named like?"
+    read name
+  fi
+  
+  if [-z "$name" ]; then
+    echo "No proper name entered. Aborting..."
+    exit 1
+  fi
+  
+  #if proper name has been entered, begin the actual process
+  #create tmp directory
+  tmp=$(createTempDir)
+  #download and unzip it there
+  wget -P $tmp http://get-simple.info/latest
+  unzip $tmp"/latest" -d $tmp
+  
+  #this is the name of the file inside of the zip archive. As there is a varying
+  #version number, I figure out the complete filename with a "ls | grep"
+  originalName=$(ls $tmp | grep GetSimple)
+  
+  #move the subfolder, containing the actual GetSimple CMS Installation
+  mv "$tmp/$originalName" $name
+  
+  echo "$originalName has been installed to $name"
+  
+  rm -r $tmp
+}
 
 #---------------------This is where the actualy execution begins-----------------------#
 
 #check if script has been called from within a Get Simple CMS installation directory
 if ! $(getWebsiteRootDirectory --check); then
-  echo "This script must be called from within a proper installation directory of GetSimple CMS"
+  echo "This script must be called from within a proper installation directory of GetSimple CMS.
+Do you want to create one here? [y/N]"
+  read input
+  if [ $input == y ] || [ $input == Y ]; then
+    setupCMS
+  fi
   exit 1
 fi
 
