@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#--------------------------Funciton Definitions--------------------------------#
+#--------------------------Function Definitions--------------------------------#
 
-#checks if $1 is the gscms root dir with the plugins and theme folders in it 
+#checks if $1 is the GetSimple CMS top level directory with the plugins and theme folders in it 
 isWebsiteRootDirectory() {
   if [ -n "$(ls $1 | grep plugins)" ] && [ -n "$(ls $1 | grep theme)" ]; then  
     return 0
