@@ -18,7 +18,7 @@ In case you want to join development I will attach a list of features that I wou
 - update core files
 - fix common file system permission problems
 - anything cool, that you can think of ;-)
-- Autocomple based on possible actions and installed themes/plugins
+- Autocomplete based on possible actions and installed themes/plugins
 
 
 
