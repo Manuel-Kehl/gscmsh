@@ -5,7 +5,7 @@ A simple shell script to comfortably execute certain maintenance operations,
 like installing plugins or themes for the GetSimple CMS.
 The overall aim is to provide a workflow that is similar to Drupal's drush.
 
-As I have just startet writing this, it is not capabale of doing much yet. 
+As I have just started writing this, it is not capabale of doing much yet. 
 The possible options so far are installing and listing plugins and themes.
 The script hast to be executed from within somewhere in the website's directory tree.
 
