@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #Here be constants
 TEMPDIR="/tmp/getSimpleCMSsetup" #The name of the temporary dir. For actual use call createTempDir, which appends a unix timestap to ensure collison prevention
@@ -30,7 +30,7 @@ getWebsiteRootDirectory() {
   while ! isWebsiteRootDirectory $dir; do
     dir=$dir"../"
     #if root of filesystem has been reached exit with error status
-    if [ "$(realpath $dir)" == "/" ]; then
+    if [ "$(realpath $dir)" = "/" ]; then
       exit 1
     fi
   done
@@ -46,7 +46,7 @@ installPlugin() {
   zipfile=$(basename "$1")
   
   #switch to the plugin directory
-  pushd $(getWebsiteRootDirectory)"plugins"
+  cd $(getWebsiteRootDirectory)"plugins"
   
   #download and install the plugin
   wget $1
@@ -56,14 +56,14 @@ installPlugin() {
   rm $zipfile  
   
   #return to former directory
-  popd
+  cd $OLDPWD
 }
 
 installTheme() {
   zipfile=$(basename "$1")
   
   #switch to the theme directory
-  pushd $(getWebsiteRootDirectory)"theme"
+  cd $(getWebsiteRootDirectory)"theme"
   
   wget $1
   #some zips can be directly unzipped, others must be extracted into an extra directory. User intervention necessary.
@@ -84,14 +84,14 @@ installTheme() {
   rm $zipfile
   
   #return to former directory
-  popd    
+  cd $OLDPWD   
 }
 
 removePlugin() {
   echo "Warning: This will remove $1 from the filesystem. Do you want to continue? [y/N]"
   
   read input
-  if [ $input == y ] || [ $input == Y ]; then
+  if [ $input = y ] || [ $input = Y ]; then
     #only remove, after confirmation, to avoid accidental removes
     dir=$(getWebsiteRootDirectory)
     #TODO: Check if all plugins have the same structure
@@ -149,7 +149,7 @@ if ! $(getWebsiteRootDirectory --check); then
   echo "This script must be called from within a proper installation directory of GetSimple CMS.
 Do you want to create one here? [y/N]"
   read input
-  if [ $input == y ] || [ $input == Y ]; then
+  if [ $input = y ] || [ $input = Y ]; then
     setupCMS
   fi
   exit 1
