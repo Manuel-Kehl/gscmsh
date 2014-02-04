@@ -78,6 +78,18 @@ installTheme() {
   popd    
 }
 
+removePlugin() {
+  echo "Warning: This will remove $1 from the filesystem. Do you want to continue? [y/N]"
+  
+  read input
+  if [ $input == y ] || [ $input == Y ]; then
+    #only remove, after confirmation, to avoid accidental removes
+    dir=$(getWebsiteRootDirectory)
+    #TODO: Check if all plugins have the same structure
+    rm -r $dir"plugins/"$1 $dir"plugins/"$1".php"
+  fi
+}
+
 #TODO: Make the output nicer
 #no duplicates (e.g. only the dirs, not the .php files)
 listPlugins() {
@@ -102,6 +114,8 @@ case "$1" in
   ;;
   "tinstall") installTheme $2
   ;;
+  "premove") removePlugin $2
+  ;;
   "plist") listPlugins
   ;;
   "tlist") listThemes
@@ -110,6 +124,7 @@ case "$1" in
   Possible actions are:
     pinstall <URL> - Install a Plugin
     tinstall <URL> - Install a Theme
+    premove <NAME> - Remove a Plugin
     plist - List Plugins installed
     tlist - List Themes installed
     
