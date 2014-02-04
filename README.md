@@ -2,7 +2,7 @@ gscmsh - GetSimple CMS Shell
 ============================
 
 A simple shell script to comfortably execute certain maintenance operations, 
-like installing plugins or themes for the GetSimple CMS.
+like installing plugins or themes for the [GetSimple CMS](http://get-simple.info/).
 The overall aim is to provide a workflow that is similar to Drupal's drush.
 
 As I have just started writing this, it is not capabale of doing much yet. 
