@@ -142,7 +142,15 @@ setupCMS() {
   rm -r $tmp
 }
 
-#---------------------This is where the actualy execution begins-----------------------#
+#Activates a plugin
+activatePlugin() {
+  file=$(getWebsiteRootDirectory)"data/other/plugins.xml"
+  search='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[false\]\]><\/enabled><\/item>'
+  replace='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[true\]\]><\/enabled><\/item>'
+  sed -i "s/$search/$replace/" $file
+}
+
+#---------------------This is where the actual execution begins-----------------------#
 
 #check if script has been called from within a Get Simple CMS installation directory
 if ! $(getWebsiteRootDirectory --check); then
@@ -162,6 +170,8 @@ case "$1" in
   ;;
   "premove") removePlugin $2
   ;;
+  "pactivate") activatePlugin $2
+  ;;
   "plist") listPlugins
   ;;
   "tlist") listThemes
@@ -171,6 +181,7 @@ case "$1" in
     pinstall <URL> - Install a Plugin
     tinstall <URL> - Install a Theme
     premove <NAME> - Remove a Plugin
+    pactivate <NAME> - Activates a Plugin
     plist - List Plugins installed
     tlist - List Themes installed
     
