@@ -12,16 +12,18 @@ Use at your own risk and always have a backup ready!
 
 Features already implemented:
 - initial creation of a GetSimpleCMS installation
-- installing Plugins/Themes
-- removing Plugins/Themes
-- listing installed Plugins/Themes
+- installing plugins/themes
+- removing plugins/themes
+- listing installed plugins/themes
+- activating/deactivating plugins
+- flushing the cache
 
 
 In case you want to join development I will attach a list of features that I would love to see implemented:
-- quick backup (should not be too complicated, as there is no DB involved)
-- update core files
-- fix common file system permission problems
 - Autocomplete based on possible actions and installed themes/plugins
+- quick backup (maybe using the system's built in backup procedure?)
+- update core files (+plugins?)
+- fix common file system permission problems
 - anything cool, that you can think of ;-)
 
 
