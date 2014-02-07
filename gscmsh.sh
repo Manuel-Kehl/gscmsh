@@ -99,14 +99,22 @@ removePlugin() {
   fi
 }
 
-#TODO: Make the output nicer
-#no duplicates (e.g. only the dirs, not the .php files)
+#Lists all installed Plugins
+#TODO: Display description and active status
 listPlugins() {
-  ls $(getWebsiteRootDirectory)"plugins/"
+  dir=$(getWebsiteRootDirectory)"plugins/"
+  pluginfiles=$(ls $dir| grep ".php")
+  echo "Your currently installed plugins are as follows:"
+  echo " "$pluginfiles | sed 's/.php/\n/g'
 }
 
 listThemes() {
-  ls $(getWebsiteRootDirectory)"theme"
+  dir=$(getWebsiteRootDirectory)"theme"
+  themefiles=$(ls $dir)
+  echo "Your currently installed themes are as follows:"
+  for theme in $themefiles; do
+    echo " "$theme
+  done
 }
 
 #downloads the latest version of GetSimple CMS and unzips it
