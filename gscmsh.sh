@@ -150,6 +150,13 @@ activatePlugin() {
   sed -i "s/$search/$replace/" $file
 }
 
+deactivatePlugin() {
+  file=$(getWebsiteRootDirectory)"data/other/plugins.xml"
+  search='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[true\]\]><\/enabled><\/item>'  
+  replace='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[false\]\]><\/enabled><\/item>'
+  sed -i "s/$search/$replace/" $file
+}
+
 #---------------------This is where the actual execution begins-----------------------#
 
 #check if script has been called from within a Get Simple CMS installation directory
@@ -170,7 +177,9 @@ case "$1" in
   ;;
   "premove") removePlugin $2
   ;;
-  "pactivate") activatePlugin $2
+  "penable") activatePlugin $2
+  ;;
+  "pdisable") deactivatePlugin $2
   ;;
   "plist") listPlugins
   ;;
@@ -181,7 +190,8 @@ case "$1" in
     pinstall <URL> - Install a Plugin
     tinstall <URL> - Install a Theme
     premove <NAME> - Remove a Plugin
-    pactivate <NAME> - Activates a Plugin
+    penable <NAME> - Activates a Plugin
+    pdisable <NAME> - Deactivates a Plugin
     plist - List Plugins installed
     tlist - List Themes installed
     
