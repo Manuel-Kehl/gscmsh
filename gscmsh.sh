@@ -213,6 +213,6 @@ case "$1" in
     tlist - List Themes installed
     flush - Flushes the Cache
     
-  Where <URL> stands for a URL pointing to the zip of the plugin or script as can be found on http://get-simple.info/extend/"
+  Where <URL> stands for an URL pointing to the zip of the plugin or script as can be found on http://get-simple.info/extend/"
   ;;
 esac
