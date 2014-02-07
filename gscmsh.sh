@@ -158,11 +158,18 @@ activatePlugin() {
   sed -i "s/$search/$replace/" $file
 }
 
+#Deactivates a plugin
 deactivatePlugin() {
   file=$(getWebsiteRootDirectory)"data/other/plugins.xml"
   search='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[true\]\]><\/enabled><\/item>'  
   replace='<item><plugin><!\[CDATA\['$1'.php\]\]><\/plugin><enabled><!\[CDATA\[false\]\]><\/enabled><\/item>'
   sed -i "s/$search/$replace/" $file
+}
+
+#Flushes the Websites Cache
+flushCache() {
+  dir=$(getWebsiteRootDirectory)"data/cache"
+  rm -rf $dir/*
 }
 
 #---------------------This is where the actual execution begins-----------------------#
@@ -193,6 +200,8 @@ case "$1" in
   ;;
   "tlist") listThemes
   ;;
+  "flush") flushCache
+  ;;
   *) echo "Usage: $(basename $0) <action> [<parameters>]
   Possible actions are:
     pinstall <URL> - Install a Plugin
@@ -202,6 +211,7 @@ case "$1" in
     pdisable <NAME> - Deactivates a Plugin
     plist - List Plugins installed
     tlist - List Themes installed
+    flush - Flushes the Cache
     
   Where <URL> stands for a URL pointing to the zip of the plugin or script as can be found on http://get-simple.info/extend/"
   ;;
