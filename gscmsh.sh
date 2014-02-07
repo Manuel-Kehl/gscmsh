@@ -94,8 +94,12 @@ removePlugin() {
   if [ $input = y ] || [ $input = Y ]; then
     #only remove, after confirmation, to avoid accidental removes
     dir=$(getWebsiteRootDirectory)
-    #TODO: Check if all plugins have the same structure
-    rm -r $dir"plugins/"$1 $dir"plugins/"$1".php"
+    rm $dir"plugins/"$1".php"
+    
+    #if the plugin came with a directory of assets, also delete this
+    if [ -e $dir"plugins/"$1 ]; then
+      rm -r $dir"plugins/"$1 
+    fi
   fi
 }
 
